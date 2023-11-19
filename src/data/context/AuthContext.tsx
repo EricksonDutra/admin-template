@@ -6,6 +6,7 @@ import { createContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
   usuario?: Usuario | null;
+  carregando?: boolean;
   loginGoogle?: () => Promise<void>;
   logout?: () => Promise<void>;
 }
@@ -82,6 +83,8 @@ export function AuthProvider(props: any) {
     if (Cookies.get("admin-template-logado")) {
       const cancelar = firebase.auth().onIdTokenChanged(configurarSessao);
       return () => cancelar();
+    } else {
+      setCarregando(false)
     }
   }, []);
 
@@ -89,6 +92,7 @@ export function AuthProvider(props: any) {
     <AuthContext.Provider
       value={{
         usuario,
+        carregando,
         loginGoogle,
         logout,
       }}

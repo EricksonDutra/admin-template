@@ -2,6 +2,7 @@ import useAppData from "@/data/hook/useAppData";
 import Cabecalho from "./Cabecalho";
 import Conteudo from "./Conteudo";
 import MenuLateral from "./MenuLateral";
+import ForcarAutenticacao from "../auth/ForcaoAutenticacao";
 
 interface LayoutProps {
   titulo: string;
@@ -13,6 +14,8 @@ export default function Layout(props: LayoutProps) {
   const { tema, alternarTema } = useAppData();
 
   return (
+    <ForcarAutenticacao>
+      
     <div className={`${tema} flex h-screen w-screen`} >
       <MenuLateral />
       <div className={`flex flex-col bg-gray-300 dark:bg-gray-800 w-full p-7`}>
@@ -20,5 +23,6 @@ export default function Layout(props: LayoutProps) {
         <Conteudo> {props.children}</Conteudo>
       </div>
     </div>
+    </ForcarAutenticacao>
   );
 }
